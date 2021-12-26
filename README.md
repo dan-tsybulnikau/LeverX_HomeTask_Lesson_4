@@ -41,13 +41,12 @@ course, meanwhile students can see only their homework.
 ## List of API
 List of all available routes and request methods is available at
 
-```bash
 http://127.0.0.1:8000/api/schema/swagger-ui/
-```
+
 or
-```bash
+
 https://app.swaggerhub.com/apis-docs/dan-tsybulnikau/lever-x_task_api/1.0.0
-```
+
 ## Installation
 1) Download files from GitHub.
 2) Unpack files to preferred directory.
@@ -61,7 +60,4 @@ $ docker-compose up -d --build
 $ docker-compose exec web python manage.py makemigrations
 $ docker-compose exec web python manage.py migrate
 ```
-6) Check installation going to
-```bash
-http://127.0.0.1:8000/api/v1/register
-```
+6) Check installation going to http://127.0.0.1:8000/api/v1/register
