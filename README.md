@@ -27,7 +27,7 @@ Code and all its dependencies are packaged up with Docker and runs on Gunicorn W
 4) Send completed hometask for check.
 5) View their completed hometask.
 6) View mark of their completed hometask.
-7)View / Add comments to mark.
+7) View / Add comments to mark.
 
 ## Permissions
 The only action available for unregistered users (and unauthorized) is registration.
