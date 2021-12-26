@@ -1,0 +1,1530 @@
+openapi: 3.0.3
+info:
+  title: LeverX Task API
+  version: 1.0.0
+  description: API Classroom
+paths:
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/completed/{id}/mark:
+    get:
+      operationId: v1_completed_mark_list
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mark'
+          description: ''
+    post:
+      operationId: v1_completed_mark_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mark'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Mark'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Mark'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mark'
+          description: ''
+  /api/v1/completed/mark/{mark_pk}/comments:
+    get:
+      operationId: v1_completed_mark_comments_list
+      parameters:
+      - in: path
+        name: mark_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+          description: ''
+    post:
+      operationId: v1_completed_mark_comments_create
+      parameters:
+      - in: path
+        name: mark_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Comment'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: ''
+  /api/v1/completed/mark/{mark_pk}/comments/{id}:
+    get:
+      operationId: v1_completed_mark_comments_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: mark_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentDetail'
+          description: ''
+  /api/v1/completed/mark/{id}:
+    get:
+      operationId: v1_completed_mark_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarkDetail'
+          description: ''
+    put:
+      operationId: v1_completed_mark_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarkDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MarkDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MarkDetail'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarkDetail'
+          description: ''
+    patch:
+      operationId: v1_completed_mark_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedMarkDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMarkDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMarkDetail'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarkDetail'
+          description: ''
+  /api/v1/course:
+    get:
+      operationId: v1_course_list
+      tags:
+      - v1
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Course'
+          description: ''
+    post:
+      operationId: v1_course_create
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Course'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Course'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+          description: ''
+  /api/v1/course/{course_pk}/lectures:
+    get:
+      operationId: v1_course_lectures_list
+      parameters:
+      - in: path
+        name: course_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Lecture'
+          description: ''
+    post:
+      operationId: v1_course_lectures_create
+      parameters:
+      - in: path
+        name: course_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lecture'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Lecture'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Lecture'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lecture'
+          description: ''
+  /api/v1/course/{course_pk}/lectures/{id}:
+    get:
+      operationId: v1_course_lectures_retrieve
+      parameters:
+      - in: path
+        name: course_pk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LectureDetail'
+          description: ''
+    put:
+      operationId: v1_course_lectures_update
+      parameters:
+      - in: path
+        name: course_pk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LectureDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LectureDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LectureDetail'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LectureDetail'
+          description: ''
+    patch:
+      operationId: v1_course_lectures_partial_update
+      parameters:
+      - in: path
+        name: course_pk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedLectureDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedLectureDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedLectureDetail'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LectureDetail'
+          description: ''
+    delete:
+      operationId: v1_course_lectures_destroy
+      parameters:
+      - in: path
+        name: course_pk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/course/{id}:
+    get:
+      operationId: v1_course_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseDetail'
+          description: ''
+    put:
+      operationId: v1_course_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CourseDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CourseDetail'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseDetail'
+          description: ''
+    patch:
+      operationId: v1_course_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCourseDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCourseDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCourseDetail'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseDetail'
+          description: ''
+    delete:
+      operationId: v1_course_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/hometasks/{hometasks_pk}/completed:
+    get:
+      operationId: v1_hometasks_completed_list
+      parameters:
+      - in: path
+        name: hometasks_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompletedHomework'
+          description: ''
+    post:
+      operationId: v1_hometasks_completed_create
+      parameters:
+      - in: path
+        name: hometasks_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompletedHomework'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CompletedHomework'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CompletedHomework'
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompletedHomework'
+          description: ''
+  /api/v1/hometasks/{hometasks_pk}/completed/{id}:
+    get:
+      operationId: v1_hometasks_completed_retrieve
+      parameters:
+      - in: path
+        name: hometasks_pk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompletedHomeworkDetail'
+          description: ''
+    put:
+      operationId: v1_hometasks_completed_update
+      parameters:
+      - in: path
+        name: hometasks_pk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompletedHomeworkDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CompletedHomeworkDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CompletedHomeworkDetail'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompletedHomeworkDetail'
+          description: ''
+    patch:
+      operationId: v1_hometasks_completed_partial_update
+      parameters:
+      - in: path
+        name: hometasks_pk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCompletedHomeworkDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCompletedHomeworkDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCompletedHomeworkDetail'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompletedHomeworkDetail'
+          description: ''
+    delete:
+      operationId: v1_hometasks_completed_destroy
+      parameters:
+      - in: path
+        name: hometasks_pk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/lectures/{lecture_pk}/hometasks:
+    get:
+      operationId: v1_lectures_hometasks_list
+      parameters:
+      - in: path
+        name: lecture_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Hometask'
+          description: ''
+    post:
+      operationId: v1_lectures_hometasks_create
+      parameters:
+      - in: path
+        name: lecture_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hometask'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Hometask'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Hometask'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hometask'
+          description: ''
+  /api/v1/lectures/{lecture_pk}/hometasks/{id}:
+    get:
+      operationId: v1_lectures_hometasks_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: lecture_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HometaskDetail'
+          description: ''
+    put:
+      operationId: v1_lectures_hometasks_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: lecture_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HometaskDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/HometaskDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/HometaskDetail'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HometaskDetail'
+          description: ''
+    patch:
+      operationId: v1_lectures_hometasks_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: lecture_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedHometaskDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedHometaskDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedHometaskDetail'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HometaskDetail'
+          description: ''
+    delete:
+      operationId: v1_lectures_hometasks_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: lecture_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/login:
+    post:
+      operationId: v1_login_create
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+        required: true
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+          description: ''
+  /api/v1/logout:
+    get:
+      operationId: v1_logout_retrieve
+      tags:
+      - v1
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/register:
+    post:
+      operationId: v1_register_create
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegister'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserRegister'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserRegister'
+        required: true
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRegister'
+          description: ''
+  /api/v1/users:
+    get:
+      operationId: v1_users_list
+      tags:
+      - v1
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+          description: ''
+components:
+  schemas:
+    AuthToken:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        token:
+          type: string
+          readOnly: true
+      required:
+      - password
+      - token
+      - username
+    Comment:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        comment_text:
+          type: string
+          maxLength: 1024
+      required:
+      - comment_text
+      - id
+    CommentDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        creator:
+          type: string
+          readOnly: true
+        comment_text:
+          type: string
+          maxLength: 1024
+      required:
+      - comment_text
+      - creator
+      - id
+    CompletedHomework:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        link:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+      required:
+      - id
+    CompletedHomeworkDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        creator:
+          type: string
+          readOnly: true
+        link:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        hometask:
+          type: integer
+          readOnly: true
+          nullable: true
+        mark:
+          type: string
+          readOnly: true
+      required:
+      - creator
+      - hometask
+      - id
+      - mark
+    Course:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 250
+        description:
+          type: string
+          maxLength: 256
+      required:
+      - description
+      - id
+      - title
+    CourseDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 250
+        description:
+          type: string
+          maxLength: 256
+        creator:
+          type: string
+          readOnly: true
+        student:
+          type: array
+          items:
+            type: integer
+        teacher:
+          type: array
+          items:
+            type: integer
+        course_lectures:
+          type: array
+          items:
+            type: string
+          readOnly: true
+      required:
+      - course_lectures
+      - creator
+      - description
+      - id
+      - title
+    Hometask:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 64
+        description:
+          type: string
+          maxLength: 256
+      required:
+      - description
+      - id
+      - title
+    HometaskDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        completed_homework:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        creator:
+          type: string
+          readOnly: true
+        title:
+          type: string
+          maxLength: 64
+        description:
+          type: string
+          maxLength: 256
+      required:
+      - completed_homework
+      - creator
+      - description
+      - id
+      - title
+    Lecture:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 64
+        presentation:
+          type: string
+          format: uri
+          nullable: true
+      required:
+      - id
+      - title
+    LectureDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 64
+        course:
+          type: string
+          readOnly: true
+        creator:
+          type: string
+          readOnly: true
+        presentation:
+          type: string
+          format: uri
+          nullable: true
+        hometask:
+          type: array
+          items:
+            type: string
+          readOnly: true
+      required:
+      - course
+      - creator
+      - hometask
+      - id
+      - title
+    Mark:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        completed_homework:
+          type: string
+          readOnly: true
+        mark:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+      required:
+      - completed_homework
+      - id
+      - mark
+    MarkDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        creator:
+          type: string
+          readOnly: true
+        completed_homework:
+          type: string
+          readOnly: true
+        mark:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommentDetail'
+          readOnly: true
+      required:
+      - comments
+      - completed_homework
+      - creator
+      - id
+      - mark
+    PatchedCompletedHomeworkDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        creator:
+          type: string
+          readOnly: true
+        link:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        hometask:
+          type: integer
+          readOnly: true
+          nullable: true
+        mark:
+          type: string
+          readOnly: true
+    PatchedCourseDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 250
+        description:
+          type: string
+          maxLength: 256
+        creator:
+          type: string
+          readOnly: true
+        student:
+          type: array
+          items:
+            type: integer
+        teacher:
+          type: array
+          items:
+            type: integer
+        course_lectures:
+          type: array
+          items:
+            type: string
+          readOnly: true
+    PatchedHometaskDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        completed_homework:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        creator:
+          type: string
+          readOnly: true
+        title:
+          type: string
+          maxLength: 64
+        description:
+          type: string
+          maxLength: 256
+    PatchedLectureDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 64
+        course:
+          type: string
+          readOnly: true
+        creator:
+          type: string
+          readOnly: true
+        presentation:
+          type: string
+          format: uri
+          nullable: true
+        hometask:
+          type: array
+          items:
+            type: string
+          readOnly: true
+    PatchedMarkDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        creator:
+          type: string
+          readOnly: true
+        completed_homework:
+          type: string
+          readOnly: true
+        mark:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommentDetail'
+          readOnly: true
+    RegistrationRoleEnum:
+      enum:
+      - S
+      - T
+      type: string
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Required. No more than 150 characters.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        first_name:
+          type: string
+          maxLength: 250
+        last_name:
+          type: string
+          maxLength: 250
+        registration_role:
+          $ref: '#/components/schemas/RegistrationRoleEnum'
+      required:
+      - email
+      - first_name
+      - last_name
+      - username
+    UserRegister:
+      type: object
+      properties:
+        username:
+          type: string
+          maxLength: 15
+          minLength: 5
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 25
+          minLength: 5
+        email:
+          type: string
+          format: email
+          maxLength: 50
+        first_name:
+          type: string
+          maxLength: 250
+        last_name:
+          type: string
+          maxLength: 250
+        registration_role:
+          $ref: '#/components/schemas/RegistrationRoleEnum'
+      required:
+      - email
+      - first_name
+      - last_name
+      - password
+      - username
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
