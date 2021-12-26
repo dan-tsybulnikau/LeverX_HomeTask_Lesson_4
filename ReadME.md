@@ -40,7 +40,7 @@ course, meanwhile students can see only their homework).
 
 <h2>List of API</h2>
 List of all available routes and request methods is available at
-```bash
+```
 http://127.0.0.1:8000/api/schema/swagger-ui/
 ```
 <h2>Installation</h2>
