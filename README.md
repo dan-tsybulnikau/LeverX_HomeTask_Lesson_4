@@ -61,3 +61,29 @@ $ docker-compose exec web python manage.py makemigrations
 $ docker-compose exec web python manage.py migrate
 ```
 6) Check installation going to http://127.0.0.1:8000/api/v1/register
+
+## Tests
+```bash
+Name                                   Stmts   Miss  Cover
+----------------------------------------------------------
+__init__.py                                0      0   100%
+app\__init__.py                            0      0   100%
+app\asgi.py                                4      4     0%
+app\settings.py                           23      0   100%
+app\urls.py                                4      0   100%
+app\wsgi.py                                4      4     0%
+classroom\__init__.py                      0      0   100%
+classroom\admin.py                         1      0   100%
+classroom\apps.py                          4      0   100%
+classroom\migrations\0001_initial.py       9      0   100%
+classroom\migrations\__init__.py           0      0   100%
+classroom\models.py                       66      1    98%
+classroom\permissions.py                  69      9    87%
+classroom\serializers.py                 110     12    89%
+classroom\tests.py                       634      0   100%
+classroom\urls.py                          3      0   100%
+classroom\views.py                       129     16    88%
+manage.py                                 12      2    83%
+----------------------------------------------------------
+TOTAL                                   1072     48    96%
+```
