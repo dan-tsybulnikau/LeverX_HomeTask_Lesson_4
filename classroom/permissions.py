@@ -70,7 +70,7 @@ class IsAbleToEvaluateOrEvaluatedReadOnly(IsAbleToAddHomeworkOrReadOnly):
 
     def has_permission(self, request, view):
         parent_course = Course.objects.get(course_lectures__hometask__completed_homework=view.kwargs['pk'])
-        parent_completed_task = CompletedHomework.objects.get(mark=view.kwargs['pk'])
+        parent_completed_task = CompletedHomework.objects.get(id=view.kwargs['pk'])
         return self.check(request, parent_course, parent_completed_task)
 
     def has_object_permission(self, request, view, obj):
@@ -85,7 +85,7 @@ class IsAbleToCommentOrOwnerReadOnly(IsAbleToAddHomeworkOrReadOnly):
 
     def has_permission(self, request, view):
         parent_course = Course.objects.get(course_lectures__hometask__completed_homework=view.kwargs['mark_pk'])
-        parent_completed_task = CompletedHomework.objects.get(mark=view.kwargs['mark_pk'])
+        parent_completed_task = CompletedHomework.objects.get(id=view.kwargs['mark_pk'])
         return self.check(request, parent_course, parent_completed_task)
 
     def has_object_permission(self, request, view, obj):

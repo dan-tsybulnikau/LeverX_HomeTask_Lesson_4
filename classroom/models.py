@@ -75,7 +75,7 @@ class Hometask(models.Model):
         ordering = ['title']
 
 
-#
+
 class CompletedHomework(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='completed_homework')
     link = models.URLField(max_length=200, blank=True, null=True)
