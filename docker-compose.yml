@@ -8,8 +8,17 @@ services:
     command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
     ports:
       - 8000:8000
-    env_file:
-      - .env
+    environment:
+      - DEBUG=1
+      - SECRET_KEY=django-insecure-_gfiqkognhp%zh7jbu!h$r(jc-9!(82*it(x-^aq3q*pl+k8ma
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+      - SQL_ENGINE=django.db.backends.postgresql
+      - SQL_DATABASE=course_db
+      - SQL_USER=postgres
+      - SQL_PASSWORD=123456789
+      - SQL_HOST=db
+      - SQL_PORT=5432
+      - DATABASE=postgres
     depends_on:
       - db
 
@@ -17,8 +26,10 @@ services:
     image: postgres:latest
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    env_file:
-      - .env.db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456789
+      - POSTGRES_DB=course_db
 
 volumes:
   postgres_data:
