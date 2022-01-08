@@ -63,6 +63,11 @@ $ docker-compose exec web python manage.py migrate
 6) Check installation going to http://127.0.0.1:8000/api/v1/register
 
 ## Tests
+1) Go to 'app' folder
+2) Run
+```bash
+$ python manage.py test classroom.tests
+```
 ```bash
 Name                                   Stmts   Miss  Cover
 ----------------------------------------------------------
